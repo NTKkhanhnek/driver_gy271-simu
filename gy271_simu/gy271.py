@@ -1,3 +1,5 @@
+# py gy271.py --debug
+# py .\gy271.py --debug
 import argparse
 import math
 import re
@@ -110,7 +112,7 @@ def parse_sample(line):
     heading_match = HEADING_RE.search(line)
     if heading_match:
         heading = math.radians(float(heading_match.group(1)))
-        return MagnetometerSample(math.cos(heading), math.sin(heading), 0.0)
+        return MagnetometerSample(math.cos(heading), -math.sin(heading), 0.0)
 
     numbers = [float(value) for value in NUMBER_RE.findall(line)]
     if len(numbers) < 3:
@@ -119,7 +121,7 @@ def parse_sample(line):
 
 
 def heading_degrees(vector):
-    heading = math.degrees(math.atan2(vector[1], vector[0]))
+    heading = math.degrees(math.atan2(-vector[1], vector[0]))
     return (heading + 360.0) % 360.0
 
 
